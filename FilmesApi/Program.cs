@@ -13,6 +13,17 @@ builder.Services.AddDbContext<FilmeContext>(opts =>
 builder.Services.
     AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
 
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAllOrigins",
+        builder =>
+        {
+            builder.AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader();
+        });
+});
+
 // Add services to the container.
 
 builder.Services.AddControllers().AddNewtonsoftJson();
@@ -34,6 +45,7 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+app.UseCors("AllowAllOrigins");
 
 app.UseHttpsRedirection();
 

@@ -2,6 +2,7 @@
 using FilmesApi.Data;
 using FilmesApi.Data.Dtos;
 using FilmesApi.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 
@@ -41,9 +42,11 @@ public class FilmeController : ControllerBase
     }
 
     [HttpGet]
+    [EnableCors("AllowAllOrigins")]
     public IEnumerable<ReadFilmeDto> RecuperaFilmes([FromQuery] int skip = 0,
         [FromQuery] int take = 50,
         [FromQuery] string? nomeCinema =null)
+      
     {
         if(nomeCinema == null)
         {
